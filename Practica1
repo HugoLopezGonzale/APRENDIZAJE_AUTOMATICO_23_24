@@ -1,0 +1,269 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMkcd2uVB7/6zrOIgvcnS/4",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/HugoLopezGonzale/APRENDIZAJE_AUTOMATICO_23_24/blob/main/Practica1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 7,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "cnPUpOyTufFx",
+        "outputId": "99149936-b4c4-4714-e6d6-785c542bd43d"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Colab only includes TensorFlow 2.x; %tensorflow_version has no effect.\n",
+            "2.13.0\n"
+          ]
+        }
+      ],
+      "source": [
+        "# 1._ IMPORTAMOS KERAS\n",
+        "%tensorflow_version 2.x\n",
+        "import tensorflow as tf\n",
+        "from tensorflow import keras\n",
+        "import numpy as np\n",
+        "import\n",
+        "print(tf.__version__)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "aa\n"
+      ],
+      "metadata": {
+        "id": "FZjaMrZsxqb2"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 2.- CARGAMOS EL CONJUNTO DE DATOS MINIST EN KERAS\n",
+        "# mnist = tf.keras.datasets.mnist\n",
+        "from keras.datasets import fashion_mnist\n",
+        "\n",
+        "(train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()\n"
+      ],
+      "metadata": {
+        "id": "Jan-CDr9xrh0"
+      },
+      "execution_count": 8,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "aa\n"
+      ],
+      "metadata": {
+        "id": "9tsaiikGyLDL"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(train_images.shape)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "EMFmBkzIyOBc",
+        "outputId": "5fe5c5aa-63f6-4843-daf8-5b951ff7847f"
+      },
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "(60000, 28, 28)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "aa"
+      ],
+      "metadata": {
+        "id": "JyPhX4Uq1pcy"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Vemos la matriz de la imagen número 30.000 (28x28)\n",
+        "np.set_printoptions(precision=2, suppress=True, linewidth=145)\n",
+        "print(np.matrix(train_images[20000]))\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "VJEpxEe_1skJ",
+        "outputId": "9685c939-7f8d-4730-fee8-173635035f40"
+      },
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   3   0   0  36  67  56   0   0   3   0   0   0   0   0   0  40  27]\n",
+            " [  0   0   0   0   0   0   0   0   2   0   0   0   0 160 255 217 255  94   0   0   0   1   4   0   0   0  65  38]\n",
+            " [  0   0   0   0   0   0   1   0   0   0   0 150 236 215 200 195 197 251 198  41   0   0   0   0   0  63 236  26]\n",
+            " [  0   2   1   0   0   0   0   0  66 167 242 216 204 190 191 201 199 197 213 255 196 122  96 122 186 206 227  63]\n",
+            " [  0   0   0   0   0   0  41 178 224 213 199 192 193 191 192 199 206 205 203 206 214 225 226 224 219 204 217 126]\n",
+            " [  0  74 134 146 166 191 204 200 193 190 193 196 193 202 204 207 205 200 203 205 202 201 199 198 200 197 221 132]\n",
+            " [ 12 164 214 217 220 216 215 209 211 208 207 205 207 209 206 206 206 206 208 207 208 206 206 207 207 203 226 150]\n",
+            " [ 28   2   0  16  43  82 119 134 169 185 206 219 223 228 233 238 242 241 238 235 237 237 236 233 228 216 246 104]\n",
+            " [ 33  56  43  19   0   0   0   0   0   0   0   0   0   0   8  16  13  18  21  13  11  15  20  20  22  21  60  37]\n",
+            " [  0   1  13  41  75  81  68  67  57  47  38  38  32  35  38  35  37  41  37  36  38  40  47  53  61  79 114  63]\n",
+            " [  0   0   0   0   1  15  31  56  66  68  82  90  81  71  62  46  34  33  38  45  46  43  30  19  14  17  22   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]\n",
+            " [  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "No podemos observar que es con claridad así que vamos a ver si de esta forma podemos distinguir el objeto.\n"
+      ],
+      "metadata": {
+        "id": "NiJa45b32teY"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Veamos el elemento 30000 y pintémoslo con matplotlib\n",
+        "import matplotlib.pyplot as plt\n",
+        "digit = train_images[20000]\n",
+        "plt.imshow(digit, cmap=plt.cm.binary)\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 430
+        },
+        "id": "RAttI5aY214I",
+        "outputId": "692d59b9-24c6-4de9-9a62-f49db834e7ee"
+      },
+      "execution_count": 12,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<Figure size 640x480 with 1 Axes>"
+            ],
+            "image/png": "iVBORw0KGgoAAAANSUhEUgAAAaAAAAGdCAYAAABU0qcqAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjcuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/bCgiHAAAACXBIWXMAAA9hAAAPYQGoP6dpAAActUlEQVR4nO3df2zU9R3H8de1tCc/2mO19MeNUgv+QEVqhlAblGlogJoYEZf4axkYgxGLGaLTsKjotqQbJsZomC5LFE0EnYlAdBuLFlviVnCghJFppU0nENqCuN71hz06+tkfhNsOWun3y13fbXk+km/C3X3e933302/vxbf37ecCzjknAACGWJp1AwCACxMBBAAwQQABAEwQQAAAEwQQAMAEAQQAMEEAAQBMEEAAABNjrBs4U19fn44cOaKsrCwFAgHrdgAAHjnn1NHRoXA4rLS0gc9zhl0AHTlyREVFRdZtAADO06FDhzR58uQBHx92AZSVlSXpVOPZ2dnG3QAAvIpGoyoqKoq/ng8kZQG0fv16Pffcc2ptbVVpaaleeuklzZkz55x1p3/tlp2dTQABwAh2rrdRUnIRwttvv63Vq1dr7dq1+vTTT1VaWqqFCxfq6NGjqdgdAGAESkkAPf/881q+fLnuu+8+XXXVVXrllVc0btw4vfrqq6nYHQBgBEp6AJ04cUJ79uxRRUXF/3aSlqaKigrV19efNT4WiykajSZsAIDRL+kB9PXXX+vkyZPKz89PuD8/P1+tra1nja+urlYoFIpvXAEHABcG8z9EXbNmjSKRSHw7dOiQdUsAgCGQ9KvgcnNzlZ6erra2toT729raVFBQcNb4YDCoYDCY7DYAAMNc0s+AMjMzNWvWLNXU1MTv6+vrU01NjcrLy5O9OwDACJWSvwNavXq1li5dquuuu05z5szRCy+8oK6uLt13332p2B0AYARKSQDdeeedOnbsmJ5++mm1trbq2muv1bZt2866MAEAcOEKOOecdRP/LxqNKhQKKRKJsBICAIxAg30dN78KDgBwYSKAAAAmCCAAgAkCCABgggACAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJgggAICJpAfQM888o0AgkLBNnz492bsBAIxwY1LxpFdffbU+/PDD/+1kTEp2AwAYwVKSDGPGjFFBQUEqnhoAMEqk5D2gAwcOKBwOa+rUqbr33nt18ODBAcfGYjFFo9GEDQAw+iU9gMrKyrRhwwZt27ZNL7/8spqbm3XjjTeqo6Oj3/HV1dUKhULxraioKNktAQCGoYBzzqVyB+3t7SouLtbzzz+v+++//6zHY7GYYrFY/HY0GlVRUZEikYiys7NT2RoAIAWi0ahCodA5X8dTfnXAxIkTdfnll6uxsbHfx4PBoILBYKrbAAAMMyn/O6DOzk41NTWpsLAw1bsCAIwgSQ+gxx57THV1dfrXv/6lv/3tb7r99tuVnp6uu+++O9m7AgCMYEn/Fdzhw4d199136/jx45o0aZJuuOEG7dy5U5MmTUr2rgAAI1jSA+itt95K9lMCAEYh1oIDAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJgggAICJMdYNAKlw8uRJX3Xp6elJ7qR/jY2Nnmu++uorzzXjx4/3XCNJ119/va86r/x8n4bqezRaffHFF55rsrKyPI3v6OgY1DjOgAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJhgMVL41tfX57kmLW1o/s8zlAtWLlu2zHPN66+/7rnm8ssv91zz5Zdfeq6R/PX3k5/8xHPNUH2fnHO+6vwsljpmzPB+WW1pafFc4/Xntru7e3DP67kTAACSgAACAJjwHEA7duzQrbfeqnA4rEAgoC1btiQ87pzT008/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E2pvb084C2pra1NBQUG/zxUMBhUMBv20AQAYwTydATnntHLlSm3evFnbt29XSUlJwuOzZs1SRkaGampq4vc1NDTo4MGDKi8vT07HAIBRwdMZUFVVlTZu3KitW7cqKysr/r5OKBTS2LFjFQqFdP/992v16tXKyclRdna2Hn74YZWXlw/qCjgAwIXD02XYA61n9tprr2nZsmWSTv0h6qOPPqpNmzYpFotp4cKF+u1vfzvgr+DOxGXYADCyDfZ1/Lz+DigVCCAAGNmG5O+AAADwiwACAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACY8BVB1dbVmz56trKws5eXlafHixWpoaEgYc9NNNykQCCRsDz74YFKbBgCMfJ4CqK6uTlVVVdq5c6c++OAD9fb2asGCBerq6koYt3z5crW0tMS3devWJbVpAMDIN8bL4G3btiXc3rBhg/Ly8rRnzx7Nmzcvfv+4ceNUUFCQnA4BAKPSeb0HFIlEJEk5OTkJ97/55pvKzc3VjBkztGbNGnV3dw/4HLFYTNFoNGEDAIx+ns6A/l9fX59WrVqluXPnasaMGfH777nnHhUXFyscDmvfvn164okn1NDQoHfffbff56murtazzz7rtw0AwAgVcM45P4UrVqzQn//8Z3388ceaPHnygOO2b9+u+fPnq7GxUdOmTTvr8VgsplgsFr8djUZVVFSkSCSi7OxsP60BAAxFo1GFQqFzvo77OgNauXKl3n//fe3YseM7w0eSysrKJGnAAAoGgwoGg37aAACMYJ4CyDmnhx9+WJs3b1Ztba1KSkrOWbN3715JUmFhoa8GAQCjk6cAqqqq0saNG7V161ZlZWWptbVVkhQKhTR27Fg1NTVp48aNuuWWW3TxxRdr3759euSRRzRv3jzNnDkzJV8AAGBk8vQeUCAQ6Pf+1157TcuWLdOhQ4f04x//WPv371dXV5eKiop0++2368knnxz0+zmD/d0hAGB4Ssl7QOfKqqKiItXV1Xl5SgDABYq14AAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACACQIIAGCCAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJsZYN3Am55wkKRqNGncCAPDj9Ov36dfzgQy7AOro6JAkFRUVGXcCADgfHR0dCoVCAz4ecOeKqCHW19enI0eOKCsrS4FAIOGxaDSqoqIiHTp0SNnZ2UYd2mMeTmEeTmEeTmEeThkO8+CcU0dHh8LhsNLSBn6nZ9idAaWlpWny5MnfOSY7O/uCPsBOYx5OYR5OYR5OYR5OsZ6H7zrzOY2LEAAAJgggAICJERVAwWBQa9euVTAYtG7FFPNwCvNwCvNwCvNwykiah2F3EQIA4MIwos6AAACjBwEEADBBAAEATBBAAAATIyaA1q9fr0suuUQXXXSRysrK9Mknn1i3NOSeeeYZBQKBhG369OnWbaXcjh07dOuttyocDisQCGjLli0Jjzvn9PTTT6uwsFBjx45VRUWFDhw4YNNsCp1rHpYtW3bW8bFo0SKbZlOkurpas2fPVlZWlvLy8rR48WI1NDQkjOnp6VFVVZUuvvhiTZgwQXfccYfa2tqMOk6NwczDTTfddNbx8OCDDxp13L8REUBvv/22Vq9erbVr1+rTTz9VaWmpFi5cqKNHj1q3NuSuvvpqtbS0xLePP/7YuqWU6+rqUmlpqdavX9/v4+vWrdOLL76oV155Rbt27dL48eO1cOFC9fT0DHGnqXWueZCkRYsWJRwfmzZtGsIOU6+urk5VVVXauXOnPvjgA/X29mrBggXq6uqKj3nkkUf03nvv6Z133lFdXZ2OHDmiJUuWGHadfIOZB0lavnx5wvGwbt06o44H4EaAOXPmuKqqqvjtkydPunA47Kqrqw27Gnpr1651paWl1m2YkuQ2b94cv93X1+cKCgrcc889F7+vvb3dBYNBt2nTJoMOh8aZ8+Ccc0uXLnW33XabST9Wjh496iS5uro659yp731GRoZ755134mM+//xzJ8nV19dbtZlyZ86Dc8798Ic/dD/96U/tmhqEYX8GdOLECe3Zs0cVFRXx+9LS0lRRUaH6+nrDzmwcOHBA4XBYU6dO1b333quDBw9at2SqublZra2tCcdHKBRSWVnZBXl81NbWKi8vT1dccYVWrFih48ePW7eUUpFIRJKUk5MjSdqzZ496e3sTjofp06drypQpo/p4OHMeTnvzzTeVm5urGTNmaM2aNeru7rZob0DDbjHSM3399dc6efKk8vPzE+7Pz8/XF198YdSVjbKyMm3YsEFXXHGFWlpa9Oyzz+rGG2/U/v37lZWVZd2eidbWVknq9/g4/diFYtGiRVqyZIlKSkrU1NSkn//856qsrFR9fb3S09Ot20u6vr4+rVq1SnPnztWMGTMknToeMjMzNXHixISxo/l46G8eJOmee+5RcXGxwuGw9u3bpyeeeEINDQ169913DbtNNOwDCP9TWVkZ//fMmTNVVlam4uJi/eEPf9D9999v2BmGg7vuuiv+72uuuUYzZ87UtGnTVFtbq/nz5xt2lhpVVVXav3//BfE+6HcZaB4eeOCB+L+vueYaFRYWav78+WpqatK0adOGus1+DftfweXm5io9Pf2sq1ja2tpUUFBg1NXwMHHiRF1++eVqbGy0bsXM6WOA4+NsU6dOVW5u7qg8PlauXKn3339fH330UcLHtxQUFOjEiRNqb29PGD9aj4eB5qE/ZWVlkjSsjodhH0CZmZmaNWuWampq4vf19fWppqZG5eXlhp3Z6+zsVFNTkwoLC61bMVNSUqKCgoKE4yMajWrXrl0X/PFx+PBhHT9+fFQdH845rVy5Ups3b9b27dtVUlKS8PisWbOUkZGRcDw0NDTo4MGDo+p4ONc89Gfv3r2SNLyOB+urIAbjrbfecsFg0G3YsMH985//dA888ICbOHGia21ttW5tSD366KOutrbWNTc3u7/+9a+uoqLC5ebmuqNHj1q3llIdHR3us88+c5999pmT5J5//nn32Wefua+++so559yvf/1rN3HiRLd161a3b98+d9ttt7mSkhL37bffGneeXN81Dx0dHe6xxx5z9fX1rrm52X344YfuBz/4gbvssstcT0+PdetJs2LFChcKhVxtba1raWmJb93d3fExDz74oJsyZYrbvn272717tysvL3fl5eWGXSffueahsbHR/eIXv3C7d+92zc3NbuvWrW7q1Klu3rx5xp0nGhEB5JxzL730kpsyZYrLzMx0c+bMcTt37rRuacjdeeedrrCw0GVmZrrvf//77s4773SNjY3WbaXcRx995CSdtS1dutQ5d+pS7Keeesrl5+e7YDDo5s+f7xoaGmybToHvmofu7m63YMECN2nSJJeRkeGKi4vd8uXLR91/0vr7+iW51157LT7m22+/dQ899JD73ve+58aNG+duv/1219LSYtd0CpxrHg4ePOjmzZvncnJyXDAYdJdeeqn72c9+5iKRiG3jZ+DjGAAAJob9e0AAgNGJAAIAmCCAAAAmCCAAgAkCCABgggACAJgggAAAJgggAIAJAggAYIIAAgCYIIAAACYIIACAif8CV7uszixTV2UAAAAASUVORK5CYII=\n"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Ahora podemos distinguir que parece una zapatilla así que vamos a confirmar que sea una zapatilla\n"
+      ],
+      "metadata": {
+        "id": "xQYcsCGb2_A3"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# La imagen anterior corresponde con el número 3. Hasta se puede intuir....\n",
+        "train_labels[20000]"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "W5i0X2tM3IRI",
+        "outputId": "a26d6f47-fb13-43c1-d030-929a69ce245e"
+      },
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "7"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 14
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Efectivamente es un zapato ya que el 7 se corresponde con *sneaker* que significa zapatilla deportiva.\n"
+      ],
+      "metadata": {
+        "id": "SnfKsMhi3WbK"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "Vg7tzrQg3qUx"
+      }
+    }
+  ]
+}
