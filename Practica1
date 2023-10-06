@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyMkcd2uVB7/6zrOIgvcnS/4",
+      "authorship_tag": "ABX9TyNoSmkumgqZ3paD6/1/91wl",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -28,14 +28,64 @@
     },
     {
       "cell_type": "code",
-      "execution_count": 7,
+      "execution_count": null,
+      "metadata": {
+        "id": "OzjDSx3KZ47U"
+      },
+      "outputs": [],
+      "source": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## GRUPO 4\n",
+        "### *Pablo Ardila  Adrián Barreñada  Hugo López*\n",
+        "#**Práctica 1**\n",
+        "\n",
+        "**Enunciado**\n",
+        "\n",
+        "Crea un modelo de Red de Neuronas Artificiales que sea capaz de reconocer y clasificar\n",
+        "imágenes de ropa en sus diferentes tipologías. Este modelo será definido, configurado,\n",
+        "entrenado, evaluado y mejorado para posteriormente usarlo para hacer predicciones.\n",
+        "Para ello tendréis que crear un modelo en Keras aplicando de una tirada todos los pasos\n",
+        "al conjunto de datos Fashion-MNIST, precargado en Keras y muy parecido al que vimos\n",
+        "en clase de reconocimiento de cifras.\n",
+        "Fashion-MNIST es un conjunto de datos de las imágenes de los artículos de Zalando\n",
+        "(www.zalando.com), una tienda de moda online alemana especializada en ventas de\n",
+        "ropa y zapatos. El conjunto de datos contiene 70K imágenes en escala de grises en 10\n",
+        "categorías. Estas imágenes muestran prendas individuales de ropa en baja resolución\n",
+        "(28 x 28 píxeles):\n",
+        "Se usan 60K imágenes para entrenar la red y 10K imágenes para evaluar la precisión con\n",
+        "la que la red aprende a clasificar las imágenes\n",
+        "Cuestiones a tener en cuenta\n",
+        "• Antes de empezar a programar vuestra red neuronal deberéis importar todas las\n",
+        "\n",
+        "**Ejercicio**\n",
+        "\n",
+        "El primer paso para empezar a programar nuestra red neuronal es importar las librerías que vamos a utilizar"
+      ],
+      "metadata": {
+        "id": "lm5lJL00aCLv"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 1._ IMPORTAMOS KERAS\n",
+        "%tensorflow_version 2.x\n",
+        "import tensorflow as tf\n",
+        "from tensorflow import keras\n",
+        "import numpy as np\n",
+        "print(tf.__version__)\n"
+      ],
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
         },
-        "id": "cnPUpOyTufFx",
-        "outputId": "99149936-b4c4-4714-e6d6-785c542bd43d"
+        "id": "70lw1p2xcUK9",
+        "outputId": "7df20190-c4b4-4b77-d262-0447f0664c99"
       },
+      "execution_count": 3,
       "outputs": [
         {
           "output_type": "stream",
@@ -45,15 +95,6 @@
             "2.13.0\n"
           ]
         }
-      ],
-      "source": [
-        "# 1._ IMPORTAMOS KERAS\n",
-        "%tensorflow_version 2.x\n",
-        "import tensorflow as tf\n",
-        "from tensorflow import keras\n",
-        "import numpy as np\n",
-        "import\n",
-        "print(tf.__version__)"
       ]
     },
     {
@@ -62,7 +103,7 @@
         "aa\n"
       ],
       "metadata": {
-        "id": "FZjaMrZsxqb2"
+        "id": "VG8JszxWcJ7f"
       }
     },
     {
@@ -75,18 +116,37 @@
         "(train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()\n"
       ],
       "metadata": {
-        "id": "Jan-CDr9xrh0"
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Piv18XXncMs5",
+        "outputId": "28ac535f-208b-4e43-b2c2-e878a2d0f601"
       },
-      "execution_count": 8,
-      "outputs": []
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/train-labels-idx1-ubyte.gz\n",
+            "29515/29515 [==============================] - 0s 0us/step\n",
+            "Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/train-images-idx3-ubyte.gz\n",
+            "26421880/26421880 [==============================] - 0s 0us/step\n",
+            "Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/t10k-labels-idx1-ubyte.gz\n",
+            "5148/5148 [==============================] - 0s 0us/step\n",
+            "Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/t10k-images-idx3-ubyte.gz\n",
+            "4422102/4422102 [==============================] - 0s 0us/step\n"
+          ]
+        }
+      ]
     },
     {
       "cell_type": "markdown",
       "source": [
-        "aa\n"
+        "Comprobamos el tamaño de las fotos y la cantidad de fotos que hay\n"
       ],
       "metadata": {
-        "id": "9tsaiikGyLDL"
+        "id": "5Zow1-jecVRM"
       }
     },
     {
@@ -98,10 +158,10 @@
         "colab": {
           "base_uri": "https://localhost:8080/"
         },
-        "id": "EMFmBkzIyOBc",
-        "outputId": "5fe5c5aa-63f6-4843-daf8-5b951ff7847f"
+        "id": "5h4Jcm44cakT",
+        "outputId": "6843a43b-57b1-4da1-da36-2533a452cade"
       },
-      "execution_count": 9,
+      "execution_count": 5,
       "outputs": [
         {
           "output_type": "stream",
@@ -115,10 +175,10 @@
     {
       "cell_type": "markdown",
       "source": [
-        "aa"
+        "Mostramos la imagen 20.000\n"
       ],
       "metadata": {
-        "id": "JyPhX4Uq1pcy"
+        "id": "t7nAVISqcfdt"
       }
     },
     {
@@ -126,16 +186,16 @@
       "source": [
         "# Vemos la matriz de la imagen número 30.000 (28x28)\n",
         "np.set_printoptions(precision=2, suppress=True, linewidth=145)\n",
-        "print(np.matrix(train_images[20000]))\n"
+        "print(np.matrix(train_images[20000]))"
       ],
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
         },
-        "id": "VJEpxEe_1skJ",
-        "outputId": "9685c939-7f8d-4730-fee8-173635035f40"
+        "id": "H2VYwq2yc4pq",
+        "outputId": "d36d7887-5363-4ff8-fafa-59965f0a09c7"
       },
-      "execution_count": 10,
+      "execution_count": 6,
       "outputs": [
         {
           "output_type": "stream",
@@ -176,10 +236,10 @@
     {
       "cell_type": "markdown",
       "source": [
-        "No podemos observar que es con claridad así que vamos a ver si de esta forma podemos distinguir el objeto.\n"
+        "No podemos observar que es con claridad así que vamos a ver si de esta forma podemos distinguir el objeto."
       ],
       "metadata": {
-        "id": "NiJa45b32teY"
+        "id": "vXMihriCdGaG"
       }
     },
     {
@@ -196,10 +256,10 @@
           "base_uri": "https://localhost:8080/",
           "height": 430
         },
-        "id": "RAttI5aY214I",
-        "outputId": "692d59b9-24c6-4de9-9a62-f49db834e7ee"
+        "id": "-ID877Ewdf-u",
+        "outputId": "ad866502-4560-45da-bb73-e7f7433e7c6f"
       },
-      "execution_count": 12,
+      "execution_count": 7,
       "outputs": [
         {
           "output_type": "display_data",
@@ -216,26 +276,26 @@
     {
       "cell_type": "markdown",
       "source": [
-        "Ahora podemos distinguir que parece una zapatilla así que vamos a confirmar que sea una zapatilla\n"
+        "Ahora podemos distinguir que parece una zapatilla así que vamos a confirmar que sea una zapatilla"
       ],
       "metadata": {
-        "id": "xQYcsCGb2_A3"
+        "id": "QCvIBXyJd6Dj"
       }
     },
     {
       "cell_type": "code",
       "source": [
-        "# La imagen anterior corresponde con el número 3. Hasta se puede intuir....\n",
-        "train_labels[20000]"
+        "\n",
+        "train_labels[20000]\n"
       ],
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
         },
-        "id": "W5i0X2tM3IRI",
-        "outputId": "a26d6f47-fb13-43c1-d030-929a69ce245e"
+        "id": "bXnH3PrDd-F9",
+        "outputId": "0b4343c3-9c1f-4080-c2f9-30c2e7831528"
       },
-      "execution_count": 14,
+      "execution_count": 8,
       "outputs": [
         {
           "output_type": "execute_result",
@@ -245,24 +305,17 @@
             ]
           },
           "metadata": {},
-          "execution_count": 14
+          "execution_count": 8
         }
       ]
     },
     {
       "cell_type": "markdown",
       "source": [
-        "Efectivamente es un zapato ya que el 7 se corresponde con *sneaker* que significa zapatilla deportiva.\n"
+        "Efectivamente es un zapato ya que el 7 se corresponde con sneaker que significa zapatilla deportiva."
       ],
       "metadata": {
-        "id": "SnfKsMhi3WbK"
-      }
-    },
-    {
-      "cell_type": "markdown",
-      "source": [],
-      "metadata": {
-        "id": "Vg7tzrQg3qUx"
+        "id": "S_G22BKLeHVZ"
       }
     }
   ]
